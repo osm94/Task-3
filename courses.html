@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    #text3d {
+        color: white;
+        letter-spacing: .15em;
+        text-shadow: -1px -1px 1px #efede3, 0px 1px 0 #2e2e2e, 0px 2px 0 #2b2828, 0px 3px 0 #2a2a2a, 0px 4px 0 #282828, 0px 5px 0 #352d2d, 0px 6px 0 #242424, 0px 7px 0 #222, 0px 8px 0 #202020, 0px 9px 0 #1e1e1e, 0px 10px 0 #1c1c1c, 0px 11px 0 #1a1a1a, 2px 20px 5px rgba(0, 0, 0, 0.9), 5px 23px 5px rgba(0, 0, 0, 0.3), 8px 27px 8px rgba(104, 85, 85, 0.5);
+    }
+
+    .e {
+        color: tomato;
+        font-size: 40px;
+    }
+
+    #text3d:hover {
+        transform: scale(0.9)
+    }
+
+    .navbar {
+        background-color: #045775;
+    }
+
+    .nav-item {
+        float: right;
+        padding: 0 20px;
+    }
+
+    .nav-item li a {
+        padding: 5px 15px;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        font-weight: 700;
+        color: #fff;
+        border: 2px solid transparent;
+        transition: all 0.5s;
+        opacity: 100%;
+    }
+
+    .navbar li:hover a,
+    .navbar li.active a {
+        border: 2px solid #BA674E;
+        transition: all;
+        transform: scale(1.5)
+    }
+
+    .svg-wrapper {
+        height: 60px;
+        margin: 0 auto;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 320px;
+    }
+
+    .shape {
+        fill: transparent;
+        stroke-dasharray: 140 540;
+        stroke-dashoffset: -474;
+        stroke-width: 8px;
+        stroke: tomato;
+        ;
+    }
+
+    .text {
+        color: black;
+        font-size: 22px;
+        letter-spacing: 8px;
+        line-height: 32px;
+        position: relative;
+        top: -48px;
+        text-align: center;
+    }
+
+    @keyframes draw {
+        0% {
+            stroke-dasharray: 140 540;
+            stroke-dashoffset: -474;
+            stroke-width: 8px;
+        }
+
+        100% {
+            stroke-dasharray: 760;
+            stroke-dashoffset: 0;
+            stroke-width: 2px;
+        }
+    }
+
+    .svg-wrapper:hover .shape {
+        -webkit-animation: 0.5s draw linear forwards;
+        animation: 0.5s draw linear forwards;
+    }
+
+    @import url(https://fonts.googleapis.com/css?family=Lora|Roboto:400,500);
+
+
+    body::before,
+    body::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+
+    body,
+    .text-light-black {
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+    .text-black {
+        color: rgba(0, 0, 0, 0.9);
+    }
+
+    .text-muted {
+        color: rgba(0, 0, 0, 0.3);
+    }
+
+    .text-uppercase {
+        text-transform: uppercase;
+    }
+
+    .ff-serif {
+        font-family: 'Lora', serif;
+    }
+
+    .font-weight-normal {
+        font-weight: normal;
+    }
+
+    .font-weight-medium {
+        font-weight: 500;
+    }
+
+    .lts-1px {
+        letter-spacing: 1px;
+    }
+
+    .lts-2px {
+        letter-spacing: 2px;
+    }
+
+
+    .w-full {
+        width: 100%;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .d-block {
+        display: block;
+    }
+
+    .d-inline-block {
+        display: inline-block;
+    }
+
+    .p-relative {
+        position: relative;
+    }
+
+    .p-absolute {
+        position: absolute
+    }
+
+    .bg-white {
+        background-color: #fff;
+    }
+
+    .small {
+        font-size: 0.75rem;
+    }
+
+    .card-heading {
+        font-size: 2.25rem;
+    }
+
+    .styled-link {
+        text-decoration: none;
+        outline: none;
+        color: #2196fe;
+        transition: all 0.25s ease-in;
+    }
+
+    .styled-link:hover,
+    .styled-link:focus,
+    .styled-link:active {
+        color: #536dfe;
+    }
+
+    .shadow-1 {
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .blue-hover {
+        transition: all 0.25s ease-in;
+        border-bottom: 5px solid transparent;
+    }
+
+    .blue-hover:hover {
+        transform: translateY(-5px);
+        border: none;
+        border-bottom: 5px solid tomato;
+    }
+
+    .clearfix::before,
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .float-left {
+        float: left;
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    /**Margin and padding utilities*/
+    .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ml-auto {
+        margin-left: auto;
+    }
+
+    .mr-auto {
+        margin-right: auto;
+    }
+
+    .mx-0 {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .mx-1 {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .mx-2 {
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+
+    .mx-3 {
+        margin-left: 3rem;
+        margin-right: 3rem;
+    }
+
+
+    .my-0 {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .my-1 {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .my-2 {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .my-3 {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .mt-0 {
+        margin-top: 0;
+    }
+
+    .mt-1 {
+        margin-top: 1rem;
+    }
+
+    .mt-2 {
+        margin-top: 2rem;
+    }
+
+    .mt-3 {
+        margin-top: 3rem;
+    }
+
+    .mb-0 {
+        margin-bottom: 0;
+    }
+
+    .mb-1 {
+        margin-bottom: 1rem;
+    }
+
+    .mb-2 {
+        margin-bottom: 2rem;
+    }
+
+    .mb-3 {
+        margin-bottom: 3rem;
+    }
+
+    .ml-0 {
+        margin-left: 0;
+    }
+
+    .ml-1 {
+        margin-left: 1rem;
+    }
+
+    .ml-2 {
+        margin-left: 2rem;
+    }
+
+    .ml-3 {
+        margin-left: 3rem;
+    }
+
+    .px-0 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .px-1 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .px-2 {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .px-3 {
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+
+
+    .py-0 {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .py-1 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .py-2 {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .py-3 {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+
+    .pt-0 {
+        padding-top: 0;
+    }
+
+    .pt-1 {
+        padding-top: 1rem;
+    }
+
+    .pt-2 {
+        padding-top: 2rem;
+    }
+
+    .pt-3 {
+        padding-top: 3rem;
+    }
+
+    .pb-0 {
+        padding-bottom: 0;
+    }
+
+    .pb-1 {
+        padding-bottom: 1rem;
+    }
+
+    .pb-2 {
+        padding-bottom: 2rem;
+    }
+
+    .pb-3 {
+        padding-bottom: 3rem;
+    }
+</style>
+
+<body>
+    <!------------------ Navbar -------------------->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 fixed-top">
+        <div class="container">
+            <a href="#" class="navbar-brand deepshd">
+                <h3 id="text3d"><span class="e">E</span>Learning</h3>
+            </a>
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="#learn" class="nav-link">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#questions" class="nav-link">COURSES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#instructors" class="nav-link">TEACHERS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#instructors" class="nav-link">ABOUT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#instructors" class="nav-link">LOG-IN</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Info -->
+    <section class="text-white mt-lg-5 p-5" style="background-color: #22363D;">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 mt-5">
+                    <h5>Online Learning</h5>
+                    <h1 class="py-2">Learn <b>Everyday</b></h1>
+                    <p>
+                        Learn new knowledge and skills in a variety of ways, from engaging video lectures and dynamic
+                        graphics to data visualizations and interactive elements.
+                        Demonstrating your knowledge is a critical part of learning. Our ourses and programs provide a
+                        space to practice with quizzes, open response assessments, virtual environments, and more.
+
+                    </p>
+                    <button class="btn btn-md px-4 py-1 mt-2" style="background-color: tomato;">Read More</button>
+                </div>
+
+                <div class="col-6">
+                    <img class="img-fluid d-sm-block d-done" style="border-radius: 10px;"
+                        src="student-removebg-preview.png">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join -->
+    <section class="text-dark bg-white mt-lg-5 p-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-7">
+                    <img class="img-fluid d-sm d-done px-5" style="border-radius: 50%;" src="studentone.jpg">
+                </div>
+
+                <div class="col-5">
+                    <h6 style="color:grey">Get accesss to high quality learning</h6>
+                    <h1 class="py-2">Join Online Classes <b>Today</b></h1>
+                    <p class="py-1" style="color: grey;">
+                        You can take our guided courses and learn at your own pace. On every step of the course you can
+                        meet other learners and share your ideas.
+                        Our course are for anyone interested in how the world of work is changing and how this may
+                        affect their current or future career. It’s also suitable for anyone who provides career
+                        guidance, such as teachers, consultants and counsellors.
+
+                    </p>
+                    <button class="btn btn-md px-4 py-1 mt-2" style="background-color: tomato" ;>Read More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Info 2 -->
+    <section class="text-white mt-lg-5 p-5" style="background-color: #22363D;">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 mt-5">
+                    <h1 class="py-2">Train Your Brain</h1>
+                    <p class="py-1">Stimulate your cognitive abilities while having fun. With out courses, you will find
+                        a series of subjects that will help you stimulate different areas and will serve as a daily
+                        brain training.
+                        They are suitable for people of all ages. Each course is associated with a different cognitive
+                        area: memory, attention, reasoning, coordination and visuospatial skills.</p>
+                    <button class="btn btn-md px-4 py-1 mt-2" style="background-color: tomato;" ;><a>All
+                            Courses</a></button>
+                </div>
+
+                <div class="col-6">
+                    <img class="img-fluid d-sm-block d-done rounded-circle float-end"
+                        src="student3-removebg-preview1.png">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Our courses -->
+    <section>
+        <div class="container">
+            <div class="svg-wrapper mt-5">
+                <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="shape" height="60" width="320" />
+                </svg>
+                <div class="text">Current Courses </div>
+            </div>
+            <div></div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="my-2 mx-auto p-relative bg-white shadow-1 blue-hover"
+                        style="width: 320px; overflow: hidden; border-radius: 1px;">
+                        <img src="htmlcss.jpg" class="d-block w-full">
+
+                        <div class="px-2 py-2">
+                            <p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px">
+                                Programming
+                            </p>
+
+                            <h1 class="ff-serif font-weight-normal text-black card-heading mt-0 mb-1"
+                                style="line-height: 1.25;">
+                                HTML & CSS
+                            </h1>
+
+                            <p class="mb-1">
+                                Throughout this course, you'll learn about the underlying structure of the web - HTML.
+                                You'll learn how to use this tree-like structure to create websites. You'll also learn
+                                how to apply styling to a website through CSS. You'll learn about CSS syntax, selectors,
+                                and units. &hellip;
+                            </p>
+
+                        </div>
+
+                        <a href="#0"
+                            class="text-uppercase d-inline-block font-weight-medium lts-2px ml-2 mb-2 text-center styled-link"
+                            style="color: tomato;">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="my-2 mx-auto p-relative bg-white shadow-1 blue-hover"
+                        style="width: 320px; overflow: hidden; border-radius: 1px;">
+                        <img src="https://i2.wp.com/idsc.miami.edu/wp-content/uploads/2020/10/Python-image-with-logo-940x530-1.jpg?resize=940%2C530&ssl=1"
+                            class="d-block w-full">
+
+                        <div class="px-2 py-2">
+                            <p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px">
+                                Programming
+                            </p>
+
+                            <h1 class="ff-serif font-weight-normal text-black card-heading mt-0 mb-1"
+                                style="line-height: 1.25;">
+                                Python
+                            </h1>
+
+                            <p class="mb-1">
+                                Learn by doing with help from world-class practitioners who use Python every day.
+                                Instructors bring the latest techniques from the field straight to the classroom. Our
+                                curriculum emphasizes real-world relevance and offers plenty of opportunity &hellip;
+                            </p>
+
+                        </div>
+
+                        <a href="#0"
+                            class="text-uppercase d-inline-block font-weight-medium lts-2px ml-2 mb-2 text-center styled-link"
+                            style="color: tomato;">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="my-2 mx-auto p-relative bg-white shadow-1 blue-hover"
+                        style="width: 320px; overflow: hidden; border-radius: 1px;">
+                        <img src="javalogo.jpg" alt="Man with backpack" class="d-block w-full">
+
+                        <div class="px-2 py-2">
+                            <p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px">
+                                Programming
+                            </p>
+
+                            <h1 class="ff-serif font-weight-normal text-black card-heading mt-0 mb-1"
+                                style="line-height: 1.25;">
+                                Javascript
+                            </h1>
+
+                            <p class="mb-1">
+                                You will learn programming fundamentals and basic object-oriented concepts using the
+                                latest JavaScript syntax. The concepts covered in these lessons lay the foundation for
+                                using JavaScript in any environment.
+                                &hellip;
+                            </p>
+
+                        </div>
+
+                        <a href="#0"
+                            class="text-uppercase d-inline-block font-weight-medium lts-2px ml-2 mb-2 text-center styled-link"
+                            style="color: tomato;">
+                            Read More
+                        </a>
+                    </div>
+
+                </div>
+
+
+    </section>
+
+
+    <!-- Why Choose Us -->
+    <section class="bg-white mt-lg-5 p-5">
+        <div class="container">
+            <div class="svg-wrapper">
+                <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="shape" height="60" width="320" />
+                </svg>
+                <div class="text">Why Choose Us? </div>
+            </div>
+
+            <div class="card-deck">
+                <div class="card" style="background-color: #056d92;">
+                    <div class="card-body text-center">
+                        <h4>Teaching</h4>
+                        <p class="card-text">We are deeply committed to putting the best teachers in every classroom,
+                            for every student, every day.</p>
+                    </div>
+                </div>
+                <div class="card" style="background-color: 
+                #D9BDA0;">
+                    <div class="card-body text-center">
+                        <h4>Innovation</h4>
+                        <p class="card-text">Grow your innovation capabilities by applying design thinking to different aspects of your organization and moving people toward new ways of working</p>
+                    </div>
+                </div>
+                <div class="card" style="background-color: #BA674E;">
+                    <div class="card-body text-center">
+                        <h4>Students</h4>
+                        <p class="card-text">We invest in schools and students globally, equipping them with the tools and resources they need to learn well.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="w-100 py-4 flex-shrink-0 bg-dark">
+        <div class="container py-4">
+            <div class="row gy-4 gx-5">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="h1 text-white">E-Learning</h5>
+                    <p class="small text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt.</p>
+                    <p class="small text-muted mb-0">&copy; Copyrights. All rights reserved. </p>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="text-white mb-3">Quick links</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Teachers</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <h5 class="text-white mb-3">Searching</h5>
+                    <p class="small text-muted">Find any course you need.</p>
+                    <form action="#">
+                        <div class="input-group mb-3">
+                            <input class="form-control" type="text" placeholder="Searching"
+                                aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button class="btn btn-primary" id="button-addon2" type="button"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-search" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                </svg></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
